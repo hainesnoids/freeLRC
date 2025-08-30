@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FreeLRC – Time Unsynced Lyrics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="title" content="FreeLRC Lyric Timing Tool">
+    <meta name="accent" content="#24ffc5">
+    <meta name="description" content="FreeLRC is a web tool that lets you add timing to your song lyrics by just pressing a key.">
+    <meta name="copyright" content="2025 Hainesnoids">
+    <meta name="license" content="GPLv3.0">
+    <link rel="icon" href="img/icon.png">
+    <!-- resources -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/libslider.css">
+    <link rel="stylesheet" href="css/music.css">
+    <script src="js"></script>
+    <script src="js/libslider.js"></script>
+    <script src="js/music.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="tool-title">
+            <img class="logo" src="img/logo_dark.svg" alt="FreeLRC Logo">
+            <span>No-bulls**t Lyric Timing Tool</span>
+        </div>
+        <div class="maintool">
+            <div class="data-input">
+                <div class="unsynced-lyrics">
+                    <label for="lyrics">Paste your unsynced lyrics here,</label>
+                    <textarea id="lyrics" autocapitalize="off" autocomplete="off" spellcheck="false" autocorrect="off"></textarea>
+                </div>
+                <div class="file-input">
+                    <label>Upload your audio file here,</label>
+                    <dragarea id="music-file" accept="audio/*">
+                        <span>Drop your file here</span>
+                        <small>(or click to select one)</small>
+                    </dragarea>
+                </div>
+                <div class="music-player">
+                    <label>Then click play!</label>
+                    <div class="music">
+                        <h2 class="file-name">-</h2>
+                        <div class="timebar">
+                            <span id="clock">--:--.--</span>
+                            <range class="slider" width="200">
+                                <label for="progress"></label>
+                                <input type="range" id="progress" min="0" max="100" value="50"/>
+                                <runnabletrack>
+                                    <rangetrack>
+                                        <thumb></thumb>
+                                    </rangetrack>
+                                </runnabletrack>
+                            </range>
+                            <span id="clock_neg">--:--.--</span>
+                        </div>
+                        <div class="playback-controls">
+                            <button id="playback-pause"><span class="material-symbols-outlined">play_arrow</span></button>
+                        </div>
+                        <audio id="music-player"></audio>
+                    </div>
+                </div>
+            </div>
+            <div class="synced-lyrics">
+                <span>You'll see your lyric entries here.</span>
+                <div class="lyrics-scroll-bounds">
+                    <div class="lyric">
+                        <span class="time">00:00.00</span>
+                        <hr>
+                        <span class="value">---</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="download-wrapper">
+            <button class="download">Download .lrc File</button>
+        </div>
+        <footer>
+            <span>When playing, press [Space] to advance the selected line.</span>
+            <span>Created by Hainesnoids</span>
+            <span>FreeLRC will be free and open source forever.</span>
+        </footer>
+    </div>
+</body>
+</html>
