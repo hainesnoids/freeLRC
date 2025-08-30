@@ -97,6 +97,7 @@ function init() {
         }
     })
     document.querySelector('.download').addEventListener('click',download)
+    document.querySelector('.advance').addEventListener('click',aaandNow)
 }
 
 document.addEventListener('DOMContentLoaded',init);
