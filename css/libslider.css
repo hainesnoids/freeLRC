@@ -5,6 +5,7 @@ range {
     align-items: center;
     justify-content: center;
     margin: 0 24px;
+    flex: 1;
 }
 range input[type='range'] {
     display: none;
@@ -17,7 +18,7 @@ range > runnabletrack {
 }
 range > runnabletrack > rangetrack {
     display: block;
-    width: 100px;
+    width: 50%;
     background-color: var(--accent);
     height: 100%;
     position: relative;

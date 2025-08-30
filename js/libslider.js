@@ -4,7 +4,7 @@ const touchStartEvent = new Event("changeStarting");
 
 function widthChangeEvent(inputNode, trackNode, rangeNode) {
     let value = Number(inputNode.value);
-    let rangeWidth = Number(rangeNode.getAttribute('width'));
+    let rangeWidth = rangeNode.getBoundingClientRect().width;
     let trackWidth = (value / inputNode.max) * rangeWidth;
     if (value >= inputNode.min && value <= inputNode.max) {
         trackNode.style.width = trackWidth + 'px';
@@ -16,11 +16,11 @@ function widthChangeEvent(inputNode, trackNode, rangeNode) {
 }
 
 function dragEvent(dragNode, trackNode, inputNode, initWidth, rangeNode) {
-    let rangeWidth = Number(rangeNode.getAttribute('width'));
+    let rangeWidth = rangeNode.getBoundingClientRect().width;
     let origin, start, offset, lastMouse;
     start = initWidth;
     function dragStart(e) {
-        rangeWidth = Number(rangeNode.getAttribute('width'));
+        rangeWidth = rangeNode.getBoundingClientRect().width;
         start = ((Number(inputNode.value) - inputNode.min) / (inputNode.max - inputNode.min)) * rangeWidth;
         e.clientX = e.clientX || e.touches[0].clientX;
         origin = e.clientX;
@@ -69,8 +69,7 @@ function initializeSlider(range) {
     const inputNode = range.querySelector('input[type="range"]');
     const dragNode = range.querySelector('thumb');
     const trackNode = range.querySelector('rangetrack');
-    const initWidth = ((Number(inputNode.value) - inputNode.min) / (inputNode.max - inputNode.min)) * Number(range.getAttribute('width'));
-    console.log(initWidth);
+    const initWidth = ((Number(inputNode.value) - inputNode.min) / (inputNode.max - inputNode.min)) * range.getBoundingClientRect().width;
     dragEvent(dragNode, trackNode, inputNode, initWidth, range);
     inputNode.addEventListener('outsideChange', () => {
         widthChangeEvent(inputNode,trackNode,range);

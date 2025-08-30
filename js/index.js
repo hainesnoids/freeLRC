@@ -85,6 +85,11 @@ function aaandNow() {
     focusLyric(lyricIndex);
 }
 
+function runThatBack() {
+    lyricIndex--;
+
+}
+
 function init() {
     unsyncedLyricsElement = document.querySelector('#lyrics');
     unsyncedLyricsElement.addEventListener('change',(event) => {
@@ -94,6 +99,9 @@ function init() {
         if (e.key === ' ') {
             e.preventDefault();
             aaandNow();
+        } else if (e.key === ',') {
+            e.preventDefault();
+            runThatBack();
         }
     })
     document.querySelector('.download').addEventListener('click',download)

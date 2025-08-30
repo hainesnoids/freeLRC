@@ -166,6 +166,8 @@ button {
 @media (max-width: 640px) {
     .maintool {
         flex-direction: column;
+        width: 100%;
+        height: 1200px;
     }
     .advance {
         display: inline-block;
