@@ -12,6 +12,9 @@ body {
     display: flex;
     justify-content: center;
 }
+a {
+    color: var(--accent);
+}
 .material-symbols-outlined {
     font-variation-settings:
     'FILL' 1,
