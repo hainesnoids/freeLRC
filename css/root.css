@@ -12,8 +12,12 @@ body {
     display: flex;
     justify-content: center;
 }
-a {
+a, a:visited {
     color: var(--accent);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 .material-symbols-outlined {
     font-variation-settings:
