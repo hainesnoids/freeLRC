@@ -55,7 +55,7 @@ function focusLyric(index) {
     const wrapper = document.querySelector('.lyrics-scroll-bounds');
     wrapper.querySelectorAll('.lyric.focus').forEach((itm) => {itm.classList.remove('focus')});
     wrapper.querySelectorAll('.lyric')[index].classList.add('focus');
-    wrapper.querySelectorAll('.lyric')[index].scrollIntoView({block: "center",inline:"nearest"})
+    wrapper.querySelectorAll('.lyric')[index].scrollIntoView({block: "center",inline:"nearest",container:"nearest"})
     lyricIndex = index;
 }
 
@@ -68,6 +68,7 @@ function download() {
     }
 
     // open download dialog
+    document.querySelector('.finished-dialog').close();
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', fileName + '.lrc');
@@ -76,18 +77,45 @@ function download() {
 
 // this is the main function used to advance the selected line and capture the current time
 // is this a good function name
+function isInBounds() {
+    if (lyricIndex < 0) {
+        lyricIndex = 0;
+        return -1
+    } else if (lyricIndex >= lyrics.length - 1) {
+        return 1
+    }
+    return 0
+}
+
 function aaandNow() {
+    const ready = isInBounds();
     const capTime = songTime;
     lyrics[lyricIndex].time = capTime;
     const wrapper = document.querySelector('.lyrics-scroll-bounds');
     wrapper.querySelectorAll('.lyric')[lyricIndex].querySelector('.time').innerHTML = formatTime(capTime);
     lyricIndex++;
-    focusLyric(lyricIndex);
+    if (ready) {
+        allDone();
+    } else {
+        focusLyric(lyricIndex);
+    }
 }
 
 function runThatBack() {
     lyricIndex--;
+    if (isInBounds() === -1) {
+        musicPlayer.currentTime = 0;
+        return;
+    }
+    const wrapper = document.querySelector('.lyrics-scroll-bounds');
+    musicPlayer.currentTime = lyrics[lyricIndex].time;
+    wrapper.querySelectorAll('.lyric')[lyricIndex].querySelector('.time').innerHTML = '--:--.--';
+    lyrics[lyricIndex].time = 0;
+    focusLyric(lyricIndex);
+}
 
+function allDone() {
+    document.querySelector('.finished-dialog').showModal();
 }
 
 function init() {
@@ -102,9 +130,17 @@ function init() {
         } else if (e.key === ',') {
             e.preventDefault();
             runThatBack();
+        } else if (e.key === '.') {
+            musicPlayer.preservesPitch = true;
+            musicPlayer.playbackRate = 2;
         }
     })
-    document.querySelector('.download').addEventListener('click',download)
+    document.addEventListener('keyup',(e) => {
+        if (e.key === '.') {
+            musicPlayer.playbackRate = 1;
+        }
+    })
+    document.querySelectorAll('.download').forEach((itm) => {itm.addEventListener('click',download)})
     document.querySelector('.advance').addEventListener('click',aaandNow)
 }
 
