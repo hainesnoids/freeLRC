@@ -119,7 +119,7 @@ function runThatBack() {
         return;
     }
     const wrapper = document.querySelector('.lyrics-scroll-bounds');
-    musicPlayer.currentTime = lyrics[lyricIndex].time;
+    musicPlayer.currentTime = lyrics[lyricIndex - 1].time ?? 0;
     wrapper.querySelectorAll('.lyric')[lyricIndex].querySelector('.time').innerHTML = '--:--.--';
     lyrics[lyricIndex].time = 0;
     focusLyric(lyricIndex);
