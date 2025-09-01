@@ -34,7 +34,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 16px;
     margin-bottom: 30px;
     position: relative;
 }
@@ -101,6 +101,20 @@ dragarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+dragarea * {
+    pointer-events: none;
+}
+dragarea.hover {
+    animation: filePulse 1s ease-in-out alternate infinite;
+    border: 1px solid var(--accent);
+}
+@keyframes filePulse {
+    to {
+        background: #256c5d;
+    }
+    from {
+    }
 }
 .music {
     display: grid;

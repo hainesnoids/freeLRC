@@ -61,6 +61,28 @@ function pause() {
     window.cancelAnimationFrame(progressUpdateEvent);
 }
 
+function dragAreaSetup() {
+    document.querySelectorAll('dragarea').forEach((dragArea) => {
+        dragArea.addEventListener("dragenter", function() {
+            dragArea.classList.add('hover');
+        }, false);
+        dragArea.addEventListener("dragover", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        }, false);
+        dragArea.addEventListener("dragleave", function() {
+            dragArea.classList.remove('hover');
+        }, false);
+        dragArea.addEventListener("drop", function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dragArea.classList.remove('hover');
+            loadSong(e.dataTransfer.files[0]);
+        }, false);
+    })
+}
+
 document.addEventListener('DOMContentLoaded',() => {
     fileInput = document.querySelector('#music-file');
     songTitle = document.querySelector('.music .file-name');
@@ -78,6 +100,7 @@ document.addEventListener('DOMContentLoaded',() => {
         }, false)
         input.click();
     });
+    dragAreaSetup();
 
     musicPlayer.addEventListener('timeupdate', timeChange);
 
