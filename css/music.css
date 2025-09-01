@@ -28,7 +28,7 @@
     grid-area: playback-controls;
 }
 .playback-controls button {
-    background-color: #3a3a5a;
+    background: linear-gradient(to bottom,#3a3a5a, #30304b) no-repeat, #30304b;
     border: 2px solid #44446a;
     box-shadow: 2px 2px 0 #26263b;
     border-radius: 24px;

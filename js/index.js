@@ -8,9 +8,20 @@ let lyrics = [
     }
 ]
 
-function parseLyrics(source) {
+function parseLyrics(source, fromWarning = false) {
     lyrics = [];
     const lrcSplit = source.split('\n');
+    if (fromWarning === false) {
+        if (new RegExp("^\[[0-9:.]*\]").test(source) === true) {
+            document.querySelector('.formatted-lyrics-alert').style.display = "";
+            document.querySelector('.no-lyrics-alert').style.display = "none";
+            document.querySelector('.lyrics-flex-bounds').innerHTML = "";
+            return;
+        }
+    } else {
+        document.querySelector('.formatted-lyrics-alert').style.display = "none";
+        document.querySelector('.no-lyrics-alert').style.display = "";
+    }
     for (let i = 0; i < lrcSplit.length; i++) {
         let itm = lrcSplit[i];
 
@@ -25,7 +36,7 @@ function parseLyrics(source) {
 }
 
 function renderLyrics() {
-    const wrapper = document.querySelector('.lyrics-scroll-bounds');
+    const wrapper = document.querySelector('.lyrics-flex-bounds');
     wrapper.innerHTML = "";
     for (let i = 0; i < lyrics.length; i++) {
         let itm = lyrics[i];
@@ -118,11 +129,26 @@ function allDone() {
     document.querySelector('.finished-dialog').showModal();
 }
 
+function speedUp(doI) {
+    musicPlayer.preservesPitch = true;
+    if (doI === true) {
+        musicPlayer.playbackRate = 1.75;
+    } else {
+        musicPlayer.playbackRate = 1;
+
+    }
+}
+
+function theseLyricsLookRightToMe() {
+    parseLyrics(document.querySelector('#lyrics').value,true);
+}
+
 function init() {
     unsyncedLyricsElement = document.querySelector('#lyrics');
     unsyncedLyricsElement.addEventListener('change',(event) => {
         parseLyrics(event.target.value);
     })
+    document.querySelector('.formatted-lyrics-alert button').addEventListener('click',theseLyricsLookRightToMe);
     document.addEventListener('keydown',(e) => {
         if (e.key === ' ') {
             e.preventDefault();
@@ -131,17 +157,26 @@ function init() {
             e.preventDefault();
             runThatBack();
         } else if (e.key === '.') {
-            musicPlayer.preservesPitch = true;
-            musicPlayer.playbackRate = 2;
+            speedUp(true);
         }
     })
     document.addEventListener('keyup',(e) => {
         if (e.key === '.') {
-            musicPlayer.playbackRate = 1;
+            speedUp(false);
         }
     })
     document.querySelectorAll('.download').forEach((itm) => {itm.addEventListener('click',download)})
+
     document.querySelector('.advance').addEventListener('click',aaandNow)
+    document.querySelector('.retreat').addEventListener('click',runThatBack)
+    let speedFast = false;
+    document.querySelector('.speedup').addEventListener('click',() => {
+        if (speedFast === false) {
+            speedUp(true);
+        } else {
+            speedUp(false);
+        }
+    })
 }
 
 document.addEventListener('DOMContentLoaded',init);

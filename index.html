@@ -25,7 +25,7 @@
         <div class="tool-title">
             <img class="logo" src="img/logo_dark.svg" alt="FreeLRC Logo">
             <span>No-bulls**t Lyric Timing Tool</span>
-            <div class="anchor-right">
+            <div class="controls anchor-right">
                 <div class="controls-list">
                     <div>
                         <div class="key">Space</div><span>Advance</span>
@@ -79,12 +79,25 @@
             </div>
             <div class="synced-lyrics">
                 <span>You'll see your lyric entries here.</span>
-                <button class="advance">Advance</button>
+                <div class="lyrics-mobile-controls">
+                    <button class="retreat">&lt;</button>
+                    <button class="advance">Advance</button>
+                    <button class="speedup">&gt;</button>
+                </div>
                 <div class="lyrics-scroll-bounds">
-                    <div class="lyric">
-                        <span class="time">00:00.00</span>
-                        <hr>
-                        <span class="value">---</span>
+                    <div class="lyrics-alert no-lyrics-alert">
+                        <img src="img/0_braincells.png" alt=""/>
+                        <span>Waiting for lyrics...</span>
+                        <small>Paste some into the box on the left, and they'll show up here.</small>
+                    </div>
+                    <div class="lyrics-alert formatted-lyrics-alert" style="display: none">
+                        <img src="img/woh.png" alt=""/>
+                        <span>Hold on..</span>
+                        <small>These unsynced lyrics look like they contain LRC formatting. FreeLRC can't import these tags yet, so you should probably remove them.</small>
+                        <button>Import anyway</button>
+                    </div>
+                    <div class="lyrics-flex-bounds">
+
                     </div>
                 </div>
             </div>
