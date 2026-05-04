@@ -25,12 +25,13 @@ function parseLyrics(source, fromWarning = false) {
     for (let i = 0; i < lrcSplit.length; i++) {
         let itm = lrcSplit[i];
 
-        if (itm !== "") { // no empty lines sorry
+        // empty line skipping broke LRCLib rules so its now disabled
+        //if (itm !== "") { // no empty lines sorry
             lyrics.push({
                 time: 0,
                 value: itm
             })
-        }
+        //}
     }
     renderLyrics();
 }
